@@ -31,55 +31,52 @@ describe Game do
   describe '#play' do
     context 'when red is first' do
       before do
+        allow(game).to receive(:gets).and_return('r')
         allow(game.red_player).to receive(:gets).and_return('1', '1', '1', '1')
         allow(game.yellow_player).to receive(:gets).and_return('2', '2', '3')
       end
-      xit 'should fill column one with four reds' do
-        expect {game.play}.to change {board.spots[1]}.to([Rainbow('O').color(:crimson), Rainbow('O').color(:crimson), Rainbow('O').color(:crimson), Rainbow('O').color(:crimson), 'O', 'O'])
+      it 'should fill column one with four reds' do
+        expect {game.play}.to change {game.board.spots[0]}.to([Rainbow('O').color(:crimson), Rainbow('O').color(:crimson), Rainbow('O').color(:crimson), Rainbow('O').color(:crimson), 'O', 'O'])
       end
-      xit 'should fill column two with two yellows' do
-        expect {game.play}.to change {board.spots[1]}.to([Rainbow('O').color(:gold), Rainbow('O').color(:gold), 'O', 'O', 'O', 'O'])
+      it 'should fill column two with two yellows' do
+        expect {game.play}.to change {game.board.spots[1]}.to([Rainbow('O').color(:gold), Rainbow('O').color(:gold), 'O', 'O', 'O', 'O'])
       end
-      xit 'should fill column three with one yellow' do
-        expect {game.play}.to change {board.spots[2][0]}.to(Rainbow('O').color(:gold))
+      it 'should fill column three with one yellow' do
+        expect {game.play}.to change {game.board.spots[2][0]}.to(Rainbow('O').color(:gold))
       end
-      xit 'should expect 7 calls of insert' do
-        expect(game).to receive(:insert).exactly(7).times
-        game.play
-      end
-      xit 'should increase spots_occupied to be 7' do
-        expect {game.play}.to change {spots_occupied}.to(7)
+      it 'should increase spots_occupied to be 7' do
+        expect {game.play}.to change {game.spots_occupied}.to(7)
       end
     end
   end
 
   describe '#determine_winner' do
     context 'when red has winning combos' do
-      xit 'detect a vertical winning combo' do
-        board.spots.delete_at(0)
-        board.spots.insert(0, [Rainbow('O').color(:crimson), Rainbow('O').color(:crimson), Rainbow('O').color(:crimson), Rainbow('O').color(:crimson), 'O', 'O'])
+      it 'detect a vertical winning combo' do
+        game.board.spots.delete_at(0)
+        game.board.spots.insert(0, [Rainbow('O').color(:crimson), Rainbow('O').color(:crimson), Rainbow('O').color(:crimson), Rainbow('O').color(:crimson), 'O', 'O'])
         expect {game.determine_winner}.to change {game.red_player.winner}.to(true)
       end
-      xit 'detect a horizontal winning combo' do
-        board.spots[0].delete_at(0)
-        board.spots[0].insert(0, Rainbow('O').color(:crimson))
-        board.spots[1].delete_at(0)
-        board.spots[1].insert(0, Rainbow('O').color(:crimson))
-        board.spots[2].delete_at(0)
-        board.spots[2].insert(0, Rainbow('O').color(:crimson))
-        board.spots[3].delete_at(0)
-        board.spots[3].insert(0, Rainbow('O').color(:crimson))
+      it 'detect a horizontal winning combo' do
+        game.board.spots[0].delete_at(0)
+        game.board.spots[0].insert(0, Rainbow('O').color(:crimson))
+        game.board.spots[1].delete_at(0)
+        game.board.spots[1].insert(0, Rainbow('O').color(:crimson))
+        game.board.spots[2].delete_at(0)
+        game.board.spots[2].insert(0, Rainbow('O').color(:crimson))
+        game.board.spots[3].delete_at(0)
+        game.board.spots[3].insert(0, Rainbow('O').color(:crimson))
         expect {game.determine_winner}.to change {game.red_player.winner}.to(true)
       end
-      xit 'detect a diagonal winning combo' do
-        board.spots[0].delete_at(0)
-        board.spots[0].insert(0, Rainbow('O').color(:crimson))
-        board.spots[1].delete_at(1)
-        board.spots[1].insert(1, Rainbow('O').color(:crimson))
-        board.spots[2].delete_at(2)
-        board.spots[2].insert(2, Rainbow('O').color(:crimson))
-        board.spots[3].delete_at(3)
-        board.spots[3].insert(3, Rainbow('O').color(:crimson))
+      it 'detect a diagonal winning combo' do
+        game.board.spots[0].delete_at(0)
+        game.board.spots[0].insert(0, Rainbow('O').color(:crimson))
+        game.board.spots[1].delete_at(1)
+        game.board.spots[1].insert(1, Rainbow('O').color(:crimson))
+        game.board.spots[2].delete_at(2)
+        game.board.spots[2].insert(2, Rainbow('O').color(:crimson))
+        game.board.spots[3].delete_at(3)
+        game.board.spots[3].insert(3, Rainbow('O').color(:crimson))
         expect {game.determine_winner}.to change {game.red_player.winner}.to(true)
       end
     end
