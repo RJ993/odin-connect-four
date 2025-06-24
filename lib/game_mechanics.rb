@@ -63,39 +63,42 @@ class Game
   end
 
   def look_at_upward_diagonal(column, row)
-    one = board.spots[column][row] if board.spots[column] != nil
+    one = board.spots[column][row] unless board.spots[column].nil?
     two = board.spots[column + 1][row + 1] if board.spots[column + 1] != nil
     three = board.spots[column + 2][row + 2] if board.spots[column + 2] != nil
     four = board.spots[column + 3][row + 3] if board.spots[column + 3] != nil
     array = [one, two, three, four]
     array.delete(nil)
     return if array.length != 4
-    red_player.make_winner if array.all? {|spot| spot == Rainbow('O').color(:crimson)}
-    yellow_player.make_winner if array.all? {|spot| spot == Rainbow('O').color(:gold)}
+
+    red_player.make_winner if array.all? { |spot| spot == Rainbow('O').color(:crimson) }
+    yellow_player.make_winner if array.all? { |spot| spot == Rainbow('O').color(:gold) }
   end
 
   def look_at_downward_diagonal(column, row)
-    one = board.spots[column][row] if board.spots[column] != nil
+    one = board.spots[column][row] unless board.spots[column].nil?
     two = board.spots[column + 1][row - 1] if board.spots[column + 1] != nil
     three = board.spots[column + 2][row - 2] if board.spots[column + 2] != nil
     four = board.spots[column + 3][row - 3] if board.spots[column + 3] != nil
     array = [one, two, three, four]
     array.delete(nil)
     return if array.length != 4
-    red_player.make_winner if array.all? {|spot| spot == Rainbow('O').color(:crimson)}
-    yellow_player.make_winner if array.all? {|spot| spot == Rainbow('O').color(:gold)}
+
+    red_player.make_winner if array.all? { |spot| spot == Rainbow('O').color(:crimson) }
+    yellow_player.make_winner if array.all? { |spot| spot == Rainbow('O').color(:gold) }
   end
 
   def look_at_vertical(column, row)
-    one = board.spots[column][row] if board.spots[column] != nil
+    one = board.spots[column][row] unless board.spots[column].nil?
     two = board.spots[column + 1][row] if board.spots[column + 1] != nil
     three = board.spots[column + 2][row] if board.spots[column + 2] != nil
     four = board.spots[column + 3][row] if board.spots[column + 3] != nil
     array = [one, two, three, four]
     array.delete(nil)
     return if array.length != 4
-    red_player.make_winner if array.all? {|spot| spot == Rainbow('O').color(:crimson)}
-    yellow_player.make_winner if array.all? {|spot| spot == Rainbow('O').color(:gold)}
+
+    red_player.make_winner if array.all? { |spot| spot == Rainbow('O').color(:crimson) }
+    yellow_player.make_winner if array.all? { |spot| spot == Rainbow('O').color(:gold) }
   end
 
   def look_at_horizontal(column, row)
@@ -106,8 +109,9 @@ class Game
     array = [one, two, three, four]
     array.delete(nil)
     return if array.length != 4
-    red_player.make_winner if array.all? {|spot| spot == Rainbow('O').color(:crimson)}
-    yellow_player.make_winner if array.all? {|spot| spot == Rainbow('O').color(:gold)}
+
+    red_player.make_winner if array.all? { |spot| spot == Rainbow('O').color(:crimson) }
+    yellow_player.make_winner if array.all? { |spot| spot == Rainbow('O').color(:gold) }
   end
 
   def declare_winner

@@ -4,8 +4,8 @@ require_relative '../../lib/game_elements/board'
 require 'rainbow'
 
 describe Player do
-  subject(:dummy) {described_class.new('red')}
-  let(:board) {Board.new}
+  subject(:dummy) { described_class.new('red') }
+  let(:board) { Board.new }
   describe '#insert' do
     context 'when player has put 4 invalid inputs' do
       before do
@@ -13,7 +13,7 @@ describe Player do
       end
 
       it 'changes the bottom of column 1' do
-        expect {dummy.insert(board)}.to change {board.spots[0][0]}.to(Rainbow('O').color(:crimson))
+        expect { dummy.insert(board) }.to change { board.spots[0][0] }.to(Rainbow('O').color(:crimson))
       end
 
       it 'cycles through 4 invalid inputs' do
